@@ -17,8 +17,9 @@ ace_friday = "Ultimate might" # Blacksmith might, essence, blessing
 ace_week_end = "Ultimate Trial" #  Improve building and research might, train troops
 
 ### -- Other week -- ###
-week2_monday = "Hero Frags"
-week2_tuesday = "Obtain Mark of glory / Use acceleration"
+week2_monday = "Hero Update"
+week2_tuesday_dev = "New Development"
+week2_tuesday_bless = "Stone of Blessing"
 # week2_wednesday = "Obtain Equipment and Blessing stones items"
 # week2_thursday = "Obtain Items from Gemasur, Runes and Blessing Stones"
 # week2_friday = "Obtain gems and Blessing stone items"
@@ -31,9 +32,16 @@ week2_tuesday = "Obtain Mark of glory / Use acceleration"
 event = st.sidebar.radio(
     "Choose your event !",
     (calendar, ace_tuesday, ace_friday, ace_week_end,
-    week2_monday, week2_tuesday))
+    week2_monday, week2_tuesday_dev, week2_tuesday_bless))
 
 if event == calendar :
+
+    st.write("**⤎⤛**")
+    st.write("**⤎⤛** &nbsp &nbsp &nbsp Select the event you want in the menu")
+    st.write("**⤎⤛**")
+    st.write("*Please remember that when you select another event, all the information you entered will be lost.*")
+
+    st.write("-")
     st.markdown('## Calendar')
 
     st.markdown('### *Ace Lord Week*')
@@ -45,14 +53,12 @@ if event == calendar :
     st.write("**Week-end**: Ultimate Trial - Finish Constructions + Research + Troops.")
 
     st.markdown('### *Other Week*')
-    st.write("**Monday**: get Hero frags.")
-    st.write("**Tuesday**: Obtain Mark of Glory, use accelerations.")
+    st.write("**Monday**: Hero Update - Get hero fragments.")
+    st.write("**Tuesday**: New Development - Get Mark of glory, use speedups.")
     st.write("**Wednesday**: Obtain Equipment and Blessing stones items.")
     st.write("**Thursday**: Obtain Items from Gemasur, Runes and Blessing Stones.")
     st.write("**Friday**: Obtain gems and Blessing stone items.")
     st.write("**Week-end**: Consume diamonds.")
-
-    st.write("Select the event you want with the checkbox. Please remember that if you uncheck an event, all the information you entered will be lost.")
 
 ### --- ACE LORD --- ###
 if event == ace_tuesday : # Development (Construction + Research)
@@ -103,10 +109,16 @@ if event == ace_week_end : # Improve building and research might, train troops
     st.write('**Event on the week-end of Ace Lord week.**')
 
 ### SPEEDUP EVENT ###
-elif event == week2_tuesday : # Speedups event
-    st.markdown("## Speedups event")
-    st.write("You've kept all your speedups for this event : **awesome** ! But is it worth spending them all ?")  
+elif event == week2_tuesday_dev : # Speedups event
+    st.markdown("## New Development")
+    st.markdown("### Use speedups, get Mark of glory.")
+    st.write("Use 1 min of speedup = 15 pts")
+    st.write("Get 1 Mark of Glory = 350 pts")
+    st.write("Minimum of points to receive rank rewards : 900,000.")
 
+    st.write("---")
+
+    st.write("You've kept all your speedups for this event : **awesome** ! But is it worth spending them *at all* ?")  
     st.write("First, let's have a look in your bag (I promise I won't tell anyone) !")
     
  ### REGULAR SPEEDUPS ###
@@ -116,7 +128,7 @@ elif event == week2_tuesday : # Speedups event
     reg_total_points = boosting_points(reg_total_mins)
 
     write_min_recap('regular', reg_total_mins, reg_days, reg_mins)
-    st.write("Potential points you will get *from all your {} speedups* : {}.".format('regular', reg_total_points))
+    st.write("Potential points you would get *from all your {} speedups* : {}.".format('regular', reg_total_points))
 
  ### RESEARCH SPEEDUPS ###
     st.markdown("### Research speedup items in your bag")
@@ -125,7 +137,7 @@ elif event == week2_tuesday : # Speedups event
     search_total_points = boosting_points(search_total_mins)
 
     write_min_recap('research', search_total_mins, search_days, search_mins)
-    st.write("Potential points you will get *from all your {} speedups* : {}.".format('research', search_total_points))
+    st.write("Potential points you would get *from all your {} speedups* : {}.".format('research', search_total_points))
 
  ### TRAINING SPEEDUPS ###
     st.markdown("### Training speedup items in your bag")
@@ -134,7 +146,7 @@ elif event == week2_tuesday : # Speedups event
     train_total_points = boosting_points(train_total_mins)
 
     write_min_recap('research', train_total_mins, train_days, train_mins)
-    st.write("Potential points you will get *from all your {} speedups* : {}.".format('training', train_total_points))
+    st.write("Potential points you would get *from all your {} speedups* : {}.".format('training', train_total_points))
 
  ### BUILDING SPEEDUPS ### 
     st.markdown("### Building speedup items in your bag")
@@ -143,7 +155,7 @@ elif event == week2_tuesday : # Speedups event
     build_total_points = boosting_points(build_total_mins)
 
     write_min_recap('research', build_total_mins, build_days, build_mins)
-    st.write("Potential points you will get *from all your {} speedups* : {}.".format('building', build_total_points))
+    st.write("Potential points you would get *from all your {} speedups* : {}.".format('building', build_total_points))
 
  ### RECAP ALL SPEEDUPS ###
 
@@ -152,15 +164,16 @@ elif event == week2_tuesday : # Speedups event
     total_points = boosting_points(total_mins)
 
     st.markdown("-")
-    st.write("**TOTAL**")
-    st.write("Total speedup minutes in your bag : {}.".format(total_mins))
+    st.markdown("### Using everything from your bag...")
+
+    st.write("Total **speedup minutes** in your bag : {}.".format(total_mins))
     st.write("Being {} day{}, {} hour{}, {} min.".format(
         days, 
         's' if days > 1 else '',
         int(mins // 60), 
         's' if (int(mins//60)) >1 else '',
         mins%60))
-    st.write("Total points you will get *if you use all your speedups* : {}.".format(total_points))
+    st.write("Total points you would get *if you use all your speedups* : {}.".format(total_points))
 
     st.write('-')
     st.write("What is your goal?")
@@ -180,6 +193,8 @@ elif event == week2_tuesday : # Speedups event
     diff_2 = objective - total_points
 
     st.write("Which would make, including your current poins : {}.".format(total_points))
+    if total_points < 900000 :
+        st.write("**I'm afraid that's not enough to get rank rewards (minimum is *900,000 pts*).**")
     if diff_2 > 0 :
         st.write("You would still need {} point{} to get to your objective, equivalent to {} more minute{} of speed-ups.".format(
             diff_2,
@@ -188,10 +203,10 @@ elif event == week2_tuesday : # Speedups event
             's' if ((diff_2+14)//15) > 1 else ''
         ))
 
-    st.markdown("-")
+    st.write("-")
 
-    st.write("Not enough?")
-    st.write("You can also buy 60-min speedups in *Hero Arena Shop* : 1 item for 300 coins,")
+    st.markdown("### Not enough?")
+    st.write("You can also buy **60-min speedups** in *Hero Arena Shop* : 1 item for 300 coins,")
     st.write("and from *Trial Shop* : 1 item for 12 coins (max 99 per day).")
     arena_coins = st.number_input('Hero Arena Coins in bag', 0)
     st.write("Potential points from Arena Shop speedups : {}, buying {} speedup{}.".format(
@@ -203,16 +218,52 @@ elif event == week2_tuesday : # Speedups event
     trial_speedups = trial_coins // 12
     if trial_speedups > 99 :
         trial_speedups = 99
+
+    trial_points = trial_speedups*60*15
+
     st.write("Potential points from Trial Shop speedups : {}, buying {} speedup{}.".format(
-        trial_speedups*60*15, 
+        trial_points, 
         trial_speedups,
         's' if trial_speedups>1 else ''))
 
-    st.write("")
+    st.write("-")
+    st.write("You can buy **Mark of Glory** items in the Rare Earth Shop")
+    rare_earth_coins = st.number_input("Rare Earth items owned :", 0)
+    mark_of_glory = rare_earth_coins // 5000
+    mark_of_glory_points = mark_of_glory * 350
 
-### HERO FRAG GLORY EVENT ###
+    st.write("Potential points from Rare Earth Mark of Glory : {}, buying {} items.".format(mark_of_glory_points, mark_of_glory))
+
+    st.write("")
+    new_total = total_points + (arena_coins//300)*60*15 + trial_points + mark_of_glory_points
+    st.write("New total : {} points.".format(new_total))
+
+    if new_total < 900000 :
+        st.write("**I'm afraid that's not enough to get rank rewards (minimum is *900,000 pts*).**")
+    if objective - new_total > 0 :
+        st.write("You would still be {} point{} away from your objective ({} points).".format(
+            diff_2,
+            's' if diff_2 > 1 else '',
+            objective
+        ))
+
+### STONE OF BLESSING ###
+elif event == week2_tuesday_bless :
+    st.markdown("## Stone of Blessing")
+    #st.markdown("### Get Stone of Blessing")
+    st.write("Get 1 Stone of Blessing = 1000 pts")
+    st.write("Minimum of points to receive rank rewards : 500,000.")
+
+    diamonds = st.number_input("How many diamonds do you have ?",0)
+
+    stones = diamonds // 100
+    stone_pts = stones * 1000
+
+    st.write("Potential points : {}, buying {} stones.".format(stone_pts, stones))
+
+### HERO FRAG EVENT ###
 elif event == week2_monday : # Hero frags event
-    st.markdown("## Hero frags")
+    st.markdown("## Hero Upgrade")
     st.write("You've been **strong**, you've kept your Arena Surprise Chests, Demon chests, Hero Choice Cards, Oath Runes, Championship Surprise Chest... Good!")
     st.write("Now is the time you were waiting for... **Open all your chests**, and go to Hero Hall to use your Oath Runes and free Recruits! 🥳")
 
