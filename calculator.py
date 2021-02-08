@@ -9,20 +9,20 @@ st.markdown("### 🚧 Site under construction ! 🧱⛏️")
 st.write('---')
 
 ### -- ACE LORD -- ##
-# ace_monday = "Collect ressources"
-calendar = "Calendar..."
-ace_tuesday = "Development"
+calendar = "📅 Calendar..."
+ace_monday = "♔ Gathering"
+ace_tuesday = "♔ Development"
 # ace_wednesday = "Consume Stamina and AP"
 # ace_thurday = "Finish troops"
-ace_friday = "Ultimate might" # Blacksmith might, essence, blessing
-ace_week_end = "Ultimate Trial" #  Improve building and research might, train troops
+ace_friday = "♔ Ultimate might" # Blacksmith might, essence, blessing
+ace_week_end = "♔ Ultimate Trial" #  Improve building and research might, train troops
 
 ### -- Other week -- ###
-week2_monday = "Hero Update"
-week2_tuesday_dev = "New Development"
-week2_tuesday_bless = "Stone of Blessing"
+week2_monday = "♚ Hero Update"
+week2_tuesday_dev = "♚ New Development"
+week2_tuesday_bless = "♚ Stone of Blessing"
 # week2_wednesday = "Obtain Equipment and Blessing stones items"
-# week2_thursday = "Obtain Items from Gemasur, Runes and Blessing Stones"
+week2_thursday = "♚ Sauroi Power"
 # week2_friday = "Obtain gems and Blessing stone items"
 # week2_week_end = "Consume diamonds"
 
@@ -32,20 +32,21 @@ week2_tuesday_bless = "Stone of Blessing"
 
 event = st.sidebar.radio(
     "Choose your event !",
-    (calendar, ace_tuesday, ace_friday, ace_week_end,
-    week2_monday, week2_tuesday_dev, week2_tuesday_bless))
+    (calendar, ace_monday, ace_tuesday, ace_friday, ace_week_end,
+    week2_monday, week2_tuesday_dev, week2_tuesday_bless, week2_thursday))
 
 if event == calendar :
 
     st.write("**⤎⤛**")
     st.write("**⤎⤛** &nbsp &nbsp &nbsp Select the event you want in the menu")
     st.write("**⤎⤛**")
-    st.write("*Please remember that when you select another event, all the information you entered will be lost.*")
+    st.write(" ")
+    st.write("*Please remember that when you change your selection, all the information you entered will be lost.*")
 
-    st.write("-")
+    st.write("---")
     st.markdown('## Calendar')
 
-    st.markdown('### *Ace Lord Week*')
+    st.markdown('### ♔ *Ace Lord Week* ♔')
     st.write("**Monday**: Gathering.")
     st.write("**Tuesday**: Development - Finish Construction + Research.")
     st.write("**Wednesday**: Consume Stamina and AP.")
@@ -53,15 +54,98 @@ if event == calendar :
     st.write("**Friday**: Ultimate Might - Improve Blacksmith might, get essences, get blessing stones.")
     st.write("**Week-end**: Ultimate Trial - Finish Constructions + Research + Troops.")
 
-    st.markdown('### *Other Week*')
+    st.markdown('### ♚ *Other Week* ♚')
     st.write("**Monday**: Hero Update - Get hero fragments.")
-    st.write("**Tuesday**: New Development - Get Mark of glory, use speedups.")
-    st.write("**Wednesday**: Obtain Equipment and Blessing stones items.")
-    st.write("**Thursday**: Obtain Items from Gemasur, Runes and Blessing Stones.")
+    st.write("**Tuesday**: New Development - Get Mark of glory, use speedups &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp Stone of Blessing")
+    st.write("**Wednesday**: Obtain Equipment items.")
+    st.write("**Thursday**: Sauroi Power - Get Runestones, get Saurgem Material.")
     st.write("**Friday**: Obtain gems and Blessing stone items.")
     st.write("**Week-end**: Consume diamonds.")
 
 ### --- ACE LORD --- ###
+if event == ace_monday : # Gathering
+    st.markdown("## ♔ Ace Lord - Gathering ♔")
+    st.write('Event on Monday of Ace Lord week.')
+    st.write("-")
+    st.write("2 pts every 20 Food / 20 Wood / 4 Iron / 1 Gold gathered.")
+    st.write("1 pt every 10 Rare Earth Ore gathered.")
+    st.write("-")
+    st.write("**Points for each resource spot**")
+
+    st.write("Level 7 &nbsp&nbsp - &nbsp&nbsp 40,000 points.") # 400k food
+    st.write("Level 6 &nbsp&nbsp - &nbsp&nbsp 28,000 points.") # 280 k food
+    st.write("Level 5 &nbsp&nbsp - &nbsp&nbsp 20,000 points.") # 200k food
+    st.write("Level 4 &nbsp&nbsp - &nbsp&nbsp 13,500 points.") # 135k food
+    st.write("Level 3 &nbsp&nbsp - &nbsp&nbsp &nbsp 8,000 points.") # 80k food
+    st.write("Level 2 &nbsp&nbsp - &nbsp&nbsp &nbsp 4,000 points.") # 40k food
+    st.write("Level 1 &nbsp&nbsp - &nbsp&nbsp &nbsp 2,000 points.") # 20k food
+
+    st.write("-")
+    st.write('**Same level spots grant the same points... But what can your troops gather the quickest ?**')
+
+    st.write("If you're VIP 10, apply your \"Gathering\" talent tree before looking at your numbers ;)" )
+
+    ## Boost Info
+    st.write("&nbsp")
+    st.write("♔ First, let's see your **Lord Boost Info** ! 🏰")
+    st.write("*If you are using a gathering speedup bonus, it is already included in these stats by the game.*")
+    rss_b = st.number_input("Resource Gathering Speed", min_value=0.0, step=0.1)
+    food_b = st.number_input("Food Gathering Speed", min_value=0.0, step=0.1)
+    wood_b = st.number_input("Wood Gathering Speed", min_value=0.0, step=0.1)
+    iron_b = st.number_input("Iron Gathering Speed", min_value=0.0, step=0.1)
+    gold_b = st.number_input("Gold Gathering Speed", min_value=0.0, step=0.1)
+
+    ## Gathering Speed-up
+    # st.write("&nbsp")
+    # st.write("♔ Are you using a **Gathering Speedup** ?")
+    # st.markdown("###### You really should...")
+    # st.write("")
+    # gathering_speed_up = st.number_input("Value of your speedup bonus", 0, step=5)
+
+    ## Basic gathering speeds
+    food_gs = 43200
+    wood_gs = 43200
+    iron_gs = 8640
+    gold_gs = 2160
+
+    ## Calculation :p
+    total_speed_food = int(food_gs * (rss_b + food_b + 20)/100)
+    total_speed_wood = int(wood_gs * (rss_b + wood_b + 20)/100)
+    total_speed_iron = int(iron_gs * (rss_b + iron_b + 20)/100)
+    total_speed_gold = int(gold_gs * (rss_b + gold_b + 20)/100)
+
+    st.write("-")
+
+    st.write("♔ Your gathering speeds :")
+    st.write("Food : {} / h + {} / h.".format(food_gs, total_speed_food))
+    st.write("Wood : {} / h + {} / h.".format(wood_gs, total_speed_wood))
+    st.write("Iron : {} / h + {} / h.".format(iron_gs, total_speed_iron))
+    st.write("Gold : {} / h + {} / h.".format(gold_gs, total_speed_gold))
+    st.write("-")
+    
+    st.write("♔ Minutes needed to empty a level 7 Resource Spot :")
+    time_food = 400000 / (food_gs + total_speed_food) * 60
+    time_wood = 400000 / (wood_gs + total_speed_wood) * 60
+    time_iron = 80000 / (iron_gs + total_speed_iron) * 60
+    time_gold = 20000 / (gold_gs + total_speed_gold) * 60
+
+    st.write("Food : {} min - {} h {} min.".format(round(time_food), round(time_food//60), round(time_food % 60)))
+    st.write("Wood : {} min - {} h {} min.".format(round(time_wood), round(time_wood//60), round(time_wood % 60)))
+    st.write("Iron : {} min - {} h {} min.".format(round(time_iron), round(time_iron//60), round(time_iron % 60)))
+    st.write("Gold : {} min - {} h {} min.".format(round(time_gold), round(time_gold//60), round(time_gold % 60)))
+
+    st.write("-")
+
+    dict_time = {'Food' : time_food,
+       'Wood' : time_wood, 
+       'Iron' : time_iron,
+       'Gold' : time_gold}
+
+    st.write("You should gather {} for points optimization !".format(min(dict_time, key=dict_time.get)))
+
+    st.write("---")
+    st.write("⚠️ Don't forget to apply your \"Gathering\" talent tree before sending your troops gather !")
+
 if event == ace_tuesday : # Development (Construction + Research)
     st.markdown("## Ace Lord - Development (Construction + Research)")
     st.write('Event on Tuesday of Ace Lord week.')
@@ -262,6 +346,15 @@ elif event == week2_tuesday_bless :
 
     st.write("Potential points : {}, buying {} stones.".format(stone_pts, stones))
 
+elif event == week2_thursday :
+    st.markdown("## Sauroi Power")
+    #st.markdown("### Get Stone of Blessing")
+    st.write("Get 100 Runestones = 40 pts")
+    st.write("Other points for Saurgem material.")
+    st.write("Minimum of points to receive rank rewards : 1,500,000.")
+    pass
+
+
 ### HERO FRAG EVENT ###
 elif event == week2_monday : # Hero frags event
     st.markdown("## Hero Upgrade")
@@ -318,8 +411,6 @@ elif event == week2_monday : # Hero frags event
     st.write("Potential points from Rare Earth Fields - Ryska frags : {}, buying {} frags.".format(rare_earth_points, ryska_frags))
 
 
-
-
 #### GEAR EVENT ####
 #elif st.sidebar.checkbox("Gear points") :
     # bag : 
@@ -328,9 +419,8 @@ elif event == week2_monday : # Hero frags event
 #    st.write("Soon!")
 #    pass
 
-
 st.write('---')
-st.write("Specially made for the Mavdalorian. 😋")
+st.write("Specially made for the Mavdalorian. 🥰")
 st.write("*This is the way.*")
 
 
