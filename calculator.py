@@ -3,6 +3,7 @@
 import streamlit as st
 import numpy as np
 from functions import *
+import pandas as pd
 
 st.title("# MOKulator !")
 st.markdown("### 🚧 Site under construction ! 🧱⛏️")
@@ -67,8 +68,17 @@ if event == ace_monday : # Gathering
     st.markdown("## ♔ Ace Lord - Gathering ♔")
     st.write('Event on Monday of Ace Lord week.')
     st.write("-")
-    st.write("2 pts every 20 Food / 20 Wood / 4 Iron / 1 Gold gathered.")
-    st.write("1 pt every 10 Rare Earth Ore gathered.")
+    st.write("**How to earn points**")
+    st.write("- 2 pts every 20 Food / 20 Wood / 4 Iron / 1 Gold gathered.")
+    st.write("- 1 pt every 10 Rare Earth Ore gathered.")
+    st.write("-")
+    st.write("**Points rewards phases**")
+    st.write("Phase 1 - Pts : 18,000")
+    st.write("Phase 2 - Pts : 36,000")
+    st.write("Phase 3 - Pts : 72,000")
+    st.write("Phase 4 - Pts : 144,000")
+    st.write("Phase 5 - Pts : 360,000")
+    st.write("Phase 6 - Pts : 720,000")
     st.write("-")
     st.write("**Points for each resource spot**")
 
@@ -87,7 +97,7 @@ if event == ace_monday : # Gathering
 
     ## Boost Info
     st.write("&nbsp")
-    st.write("♔ First, let's see your **Lord Boost Info** ! 🏰")
+    st.write("First, let's see your **Lord Boost Info** ! 🏰")
     st.write("*If you are using a gathering speedup bonus, it is already included in these stats by the game.*")
     rss_b = st.number_input("Resource Gathering Speed", min_value=0.0, step=0.1)
     food_b = st.number_input("Food Gathering Speed", min_value=0.0, step=0.1)
@@ -114,25 +124,46 @@ if event == ace_monday : # Gathering
     total_speed_iron = int(iron_gs * (rss_b + iron_b + 20)/100)
     total_speed_gold = int(gold_gs * (rss_b + gold_b + 20)/100)
 
-    st.write("-")
-
-    st.write("♔ Your gathering speeds :")
-    st.write("Food : {} / h + {} / h.".format(food_gs, total_speed_food))
-    st.write("Wood : {} / h + {} / h.".format(wood_gs, total_speed_wood))
-    st.write("Iron : {} / h + {} / h.".format(iron_gs, total_speed_iron))
-    st.write("Gold : {} / h + {} / h.".format(gold_gs, total_speed_gold))
-    st.write("-")
-    
-    st.write("♔ Minutes needed to empty a level 7 Resource Spot :")
     time_food = 400000 / (food_gs + total_speed_food) * 60
     time_wood = 400000 / (wood_gs + total_speed_wood) * 60
     time_iron = 80000 / (iron_gs + total_speed_iron) * 60
     time_gold = 20000 / (gold_gs + total_speed_gold) * 60
 
-    st.write("Food : {} min - {} h {} min.".format(round(time_food), round(time_food//60), round(time_food % 60)))
-    st.write("Wood : {} min - {} h {} min.".format(round(time_wood), round(time_wood//60), round(time_wood % 60)))
-    st.write("Iron : {} min - {} h {} min.".format(round(time_iron), round(time_iron//60), round(time_iron % 60)))
-    st.write("Gold : {} min - {} h {} min.".format(round(time_gold), round(time_gold//60), round(time_gold % 60)))
+
+    st.write("-")
+
+    st.write("**Gathering speeds & Time needed to empty a level 7 Resource Spot**")
+    d = {'Resource' : ['Food', 'Wood', 'Iron', 'Gold'], 
+    "Basic speed / h" : [food_gs, wood_gs, iron_gs, gold_gs],
+    "Bonus speed / h" : [total_speed_food, total_speed_wood, total_speed_iron, total_speed_gold],
+    "Empty Lvl 7 in" : [
+        "{} min".format(round(time_food)), 
+        "{} min".format(round(time_wood)), 
+        "{} min".format(round(time_iron)), 
+        "{} min".format(round(time_gold))
+        ],
+    "Equivalent to..." : [
+    "{} h {} min".format(round(time_food//60), round(time_food % 60)),
+    "{} h {} min".format(round(time_wood//60), round(time_wood % 60)),
+    "{} h {} min".format(round(time_iron//60), round(time_iron % 60)),
+    "{} h {} min".format(round(time_gold//60), round(time_gold % 60))
+    ]}
+
+    df = pd.DataFrame(d)
+    st.table(df)
+
+
+    # st.write("Food :&nbsp {} / h +&nbsp {} / h.".format(food_gs, total_speed_food))
+    # st.write("Wood : {} / h +&nbsp {} / h.".format(wood_gs, total_speed_wood))
+    # st.write("Iron :&nbsp&nbsp&nbsp&nbsp&nbsp {} / h +&nbsp {} / h.".format(iron_gs, total_speed_iron))
+    # st.write("Gold :&nbsp&nbsp&nbsp&nbsp {} / h +&nbsp&nbsp {} / h.".format(gold_gs, total_speed_gold))
+    # st.write("-")
+    
+    # st.write("**Time needed to empty a level 7 Resource Spot**")
+    # st.write("Food :&nbsp {} min ⟶ {} h {} min.".format(round(time_food), round(time_food//60), round(time_food % 60)))
+    # st.write("Wood : {} min ⟶ {} h {} min.".format(round(time_wood), round(time_wood//60), round(time_wood % 60)))
+    # st.write("Iron :&nbsp&nbsp&nbsp {} min ⟶ {} h {} min.".format(round(time_iron), round(time_iron//60), round(time_iron % 60)))
+    # st.write("Gold :&nbsp&nbsp {} min ⟶ {} h {} min.".format(round(time_gold), round(time_gold//60), round(time_gold % 60)))
 
     st.write("-")
 
@@ -141,15 +172,28 @@ if event == ace_monday : # Gathering
        'Iron' : time_iron,
        'Gold' : time_gold}
 
-    st.write("You should gather {} for points optimization !".format(min(dict_time, key=dict_time.get)))
+    st.write("You should gather **{}** for points optimization !".format(min(dict_time, key=dict_time.get)))
 
-    st.write("---")
+    st.write("-")
     st.write("⚠️ Don't forget to apply your \"Gathering\" talent tree before sending your troops gather !")
 
 if event == ace_tuesday : # Development (Construction + Research)
-    st.markdown("## Ace Lord - Development (Construction + Research)")
+    st.markdown("## ♔ Ace Lord - Development ♔")
     st.write('Event on Tuesday of Ace Lord week.')
-    st.write('Before starting to build, think about your boosts !')
+    st.write("-")
+    st.write("**How to earn points**")
+    st.write("- Improve Building Might by 1 - 5 pts")
+    st.write("- Improve Tech Might by 1 - 5 pts")
+    st.write("-")
+    st.write("**Points rewards phases**")
+    st.write("Phase 1 - Pts : 54,000")
+    st.write("Phase 2 - Pts : 108,000")
+    st.write("Phase 3 - Pts : 216,000")
+    st.write("Phase 4 - Pts : 432,000")
+    st.write("Phase 5 - Pts : 1,080,000")
+    st.write("Phase 6 - Pts : 2,160,000")
+    st.write("-")
+    st.write('♔ Before starting to build, think about your boosts !')
     
  ### REGULAR SPEEDUPS ###
     st.markdown("### Regular speedup items in your bag")
