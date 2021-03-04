@@ -47,26 +47,67 @@ if event == calendar :
     st.write("*Please remember that when you change your selection, all the information you entered will be lost.*")
 
     st.write("---")
-    st.markdown('## Calendar')
+    st.markdown('# Calendar')
 
-    st.markdown('### ♔ *Ace Lord Week* ♔')
-    st.write("**Monday**: Gathering.")
-    st.write("**Tuesday**: Development - Finish Construction + Research.")
-    st.write("**Wednesday**: Hunt Monsters - Consume Stamina and AP.")
-    st.write("**Thursday**: Master Trainer - Finish Troops.")
-    st.write("**Friday**: Ultimate Might - Improve Blacksmith might, get essences, get blessing stones.")
-    st.write("**Week-end**: Ultimate Trial - Finish Constructions + Research + Troops.")
+    st.markdown('## ♔ Ace Lord Week ♔')
+    st.markdown("### Monday")
+    st.write("✨ 1/6 - Gathering")
+    st.markdown("### Tuesday")
+    st.write("✨ 2/6 - Development - Finish Construction + Research")
+    st.markdown("### Wednesday")
+    st.write("✨ 3/6 - Hunt Monsters - Consume Stamina and AP")
+    st.markdown("### Thursday")
+    st.write("✨ 4-/6 Master Trainer - Finish Troops") 
+    st.write("Warsigil Upgrade")
+    st.markdown("### Friday")
+    st.write("✨ 5/6 - Ultimate Might - Improve Blacksmith might, get essences, get blessing stones")
+    st.markdown("### Week-end")
+    st.write("✨ 6/6 - Ultimate Trial - Finish Constructions + Research + Troops")
+    st.write("Military Expedition")
 
-    st.markdown('### ♚ *Other Week* ♚')
-    st.write("**Monday**: Hero Update - Get hero fragments.")
-    st.write("**Tuesday**: New Development - Get Mark of glory, use speedups &nbsp &nbsp &nbsp / &nbsp &nbsp &nbsp Stone of Blessing")
-    st.write("**Wednesday**: Obtain Equipment items.")
-    st.write("**Thursday**: Sauroi Power - Get Runestones, get Saurgem Material.")
-    st.write("**Friday**: Obtain gems and Blessing stone items.")
-    st.write("**Week-end**: Consume diamonds.")
+    st.write("-")
 
-    st.markdown('### 🏰 Other Events')
-    st.write("**Thursday of Ace Lord Week** : Warsigil Upgrade")
+    st.markdown('## ♚ Other Week ♚')
+    st.markdown("### Monday")
+    st.write("🎊 Hero Update - Get Hero Fragments")
+    st.write("Personal Activity")
+    st.write("Element Trial I - Blue + Yellow Heroes")
+    st.write("Challenger's Path")
+
+    st.markdown("### Tuesday###")
+    st.write("🎊 New Development - Get Mark of glory, use speedups")
+    st.write("🎊 Stone of Blessing")
+    st.write("Monster Hunt")
+    st.write("Gather Supplies")
+    st.write("Challenger's Path")
+
+    st.write("### Wednesday")
+    st.write("🎊 Gear Upgrade - Get Gear Material")
+    st.write("Challenger's Path")
+    st.write("Joy 777 - day 1")
+    st.write("Elemental Trial II - Green + Purple + Red Heroes")
+
+    st.write("### Thursday")
+    st.write("🎊 Sauroi Power - Get Runestones, get Saurgem Material")
+    st.write("Monster Hunt")
+    st.write("Joy 777 - day 2")
+    st.write("Element Trial I - Blue + Yellow Heroes")
+    st.write("Hell events")
+    st.write("Army expension")
+
+    st.write("### Friday")
+    st.write("🎊 Gem Upgrade - Get Gem Material")
+    st.write("Elemental Trial - Green + Yellow Heroes")
+    st.write("Battle of Saurnesia")
+    st.write("Joy 777 - day 3")
+
+    st.write("### Week-end")
+    st.write("🎊 Consume diamonds")
+    st.write("Valiant Conquest")
+
+    st.write('---')
+    st.write("🎊 Events where you can get Summon Stone II.")
+    st.write("✨ Ace Lord : week-long event where you can get Summon Stone I.")
 
 ### --- ACE LORD --- ###
 if event == ace_monday : # Gathering
@@ -264,12 +305,12 @@ elif event == week2_monday : # Hero frags event
     sum_points = hero_2 * 500 + hero_3 * 2000 + hero_4 * 8000 + hero_5 * 20000
 
     st.write("**TOTAL**")
-    st.write("You will get {} points using your {} cards.".format(sum_points, sum_cards))
-    st.write("Including previous points: {}.".format(hero_actual+sum_points))
+    st.write("You will get {:,} points using your {} cards.".format(sum_points, sum_cards))
+    st.write("Including previous points: {:,}.".format(hero_actual+sum_points))
 
     diff = objective - (hero_actual+sum_points)
     if diff > 0 :
-        st.write("You are {} point{} away from your objective.".format(
+        st.write("You are {:,} point{} away from your objective.".format(
             diff, 
             's' if diff > 1 else ''))
     else :
@@ -291,12 +332,12 @@ elif event == week2_monday : # Hero frags event
     if hart_frags > 10 :
         hart_frags = 10
     trial_tower_points = hart_frags*8000
-    st.write("Potential points from Trial Shop - Hart Frags : {}, buying {} frags.".format(trial_tower_points, hart_frags))
+    st.write("Potential points from Trial Shop - Hart Frags : {:,}, buying {} frags.".format(trial_tower_points, hart_frags))
 
     rare_earth = st.number_input("Rare Earth material", 0)
     ryska_frags = rare_earth // 350000
     rare_earth_points = ryska_frags * 20000
-    st.write("Potential points from Rare Earth Fields - Ryska frags : {}, buying {} frags.".format(rare_earth_points, ryska_frags))
+    st.write("Potential points from Rare Earth Fields - Ryska frags : {:,}, buying {} frags.".format(rare_earth_points, ryska_frags))
 
 ### SPEEDUP EVENT ###
 elif event == week2_tuesday_dev : # Speedups event
@@ -318,7 +359,7 @@ elif event == week2_tuesday_dev : # Speedups event
     reg_total_points = boosting_points(reg_total_mins)
 
     write_min_recap('regular', reg_total_mins, reg_days, reg_mins)
-    st.write("Potential points you would get *from all your {} speedups* : {}.".format('regular', reg_total_points))
+    st.write("Potential points you would get *from all your {} speedups* : {:,}.".format('regular', reg_total_points))
 
  ### RESEARCH SPEEDUPS ###
     st.markdown("### Research speedup items in your bag")
@@ -327,7 +368,7 @@ elif event == week2_tuesday_dev : # Speedups event
     search_total_points = boosting_points(search_total_mins)
 
     write_min_recap('research', search_total_mins, search_days, search_mins)
-    st.write("Potential points you would get *from all your {} speedups* : {}.".format('research', search_total_points))
+    st.write("Potential points you would get *from all your {} speedups* : {:,}.".format('research', search_total_points))
 
  ### TRAINING SPEEDUPS ###
     st.markdown("### Training speedup items in your bag")
@@ -336,7 +377,7 @@ elif event == week2_tuesday_dev : # Speedups event
     train_total_points = boosting_points(train_total_mins)
 
     write_min_recap('research', train_total_mins, train_days, train_mins)
-    st.write("Potential points you would get *from all your {} speedups* : {}.".format('training', train_total_points))
+    st.write("Potential points you would get *from all your {} speedups* : {:,}.".format('training', train_total_points))
 
  ### BUILDING SPEEDUPS ### 
     st.markdown("### Building speedup items in your bag")
@@ -345,7 +386,7 @@ elif event == week2_tuesday_dev : # Speedups event
     build_total_points = boosting_points(build_total_mins)
 
     write_min_recap('research', build_total_mins, build_days, build_mins)
-    st.write("Potential points you would get *from all your {} speedups* : {}.".format('building', build_total_points))
+    st.write("Potential points you would get *from all your {} speedups* : {:,}.".format('building', build_total_points))
 
  ### RECAP ALL SPEEDUPS ###
 
@@ -363,7 +404,7 @@ elif event == week2_tuesday_dev : # Speedups event
         int(mins // 60), 
         's' if (int(mins//60)) >1 else '',
         mins%60))
-    st.write("Total points you would get *if you use all your speedups* : {}.".format(total_points))
+    st.write("Total points you would get *if you use all your speedups* : {:,}.".format(total_points))
 
     st.write('-')
     st.write("What is your goal?")
@@ -382,11 +423,11 @@ elif event == week2_tuesday_dev : # Speedups event
     total_points = total_mins*15 + current_points
     diff_2 = objective - total_points
 
-    st.write("Which would make, including your current poins : {}.".format(total_points))
+    st.write("Which would make, including your current poins : {:,}.".format(total_points))
     if total_points < 900000 :
         st.write("**I'm afraid that's not enough to get rank rewards (minimum is *900,000 pts*).**")
     if diff_2 > 0 :
-        st.write("You would still need {} point{} to get to your objective, equivalent to {} more minute{} of speed-ups.".format(
+        st.write("You would still need {:,} point{} to get to your objective, equivalent to {} more minute{} of speed-ups.".format(
             diff_2,
             's' if diff_2 > 1 else '',
             (diff_2+14)//15,
@@ -399,7 +440,7 @@ elif event == week2_tuesday_dev : # Speedups event
     st.write("You can also buy **60-min speedups** in *Hero Arena Shop* : 1 item for 300 coins,")
     st.write("and from *Trial Shop* : 1 item for 12 coins (max 99 per day).")
     arena_coins = st.number_input('Hero Arena Coins in bag', 0)
-    st.write("Potential points from Arena Shop speedups : {}, buying {} speedup{}.".format(
+    st.write("Potential points from Arena Shop speedups : {:,}, buying {} speedup{}.".format(
         (arena_coins//300)*60*15, 
         arena_coins//300,
         's' if (arena_coins//300)>1 else ''))
@@ -411,7 +452,7 @@ elif event == week2_tuesday_dev : # Speedups event
 
     trial_points = trial_speedups*60*15
 
-    st.write("Potential points from Trial Shop speedups : {}, buying {} speedup{}.".format(
+    st.write("Potential points from Trial Shop speedups : {:,}, buying {} speedup{}.".format(
         trial_points, 
         trial_speedups,
         's' if trial_speedups>1 else ''))
@@ -422,16 +463,16 @@ elif event == week2_tuesday_dev : # Speedups event
     mark_of_glory = rare_earth_coins // 5000
     mark_of_glory_points = mark_of_glory * 350
 
-    st.write("Potential points from Rare Earth Mark of Glory : {}, buying {} items.".format(mark_of_glory_points, mark_of_glory))
+    st.write("Potential points from Rare Earth Mark of Glory : {:,}, buying {} items.".format(mark_of_glory_points, mark_of_glory))
 
     st.write("")
     new_total = total_points + (arena_coins//300)*60*15 + trial_points + mark_of_glory_points
-    st.write("New total : {} points.".format(new_total))
+    st.write("New total : {:,} points.".format(new_total))
 
     if new_total < 900000 :
         st.write("**I'm afraid that's not enough to get rank rewards (minimum is *900,000 pts*).**")
     if objective - new_total > 0 :
-        st.write("You would still be {} point{} away from your objective ({} points).".format(
+        st.write("You would still be {:,} point{} away from your objective ({:,} points).".format(
             diff_2,
             's' if diff_2 > 1 else '',
             objective
@@ -449,14 +490,34 @@ elif event == week2_tuesday_bless :
     stones = diamonds // 100
     stone_pts = stones * 1000
 
-    st.write("Potential points : {}, buying {} stones.".format(stone_pts, stones))
+    st.write("Potential points : {:,}, buying {} stones.".format(stone_pts, stones))
 
 ### SAUROI POWER ###
 elif event == week2_thursday :
     st.markdown("## ♚ Sauroi Power ♚")
-    st.write("Get 100 Runestones = 40 pts")
-    st.write("Other points for Saurgem material.")
+
+    st.write("-")
+    st.write("**How to earn points**")
+
+    st.write("Get 100 Runestones - 40 pts")
+    st.write('')
+
+    st.write("Get 1★ Saurgem Essence - 200 pts")
+    st.write("Get 2★ Saurgem Essence - 1,000 pts")
+    st.write("Get 3★ Saurgem Essence - 4,000 pts")
+    st.write("Get 4★ Saurgem Essence - 10,000 pts")
+    st.write("Get 5★ Saurgem Essence - 40,000 pts")
+    st.write("Get 8★ Saurgem Promoter - 20,000 pts")
+
+    st.write("Get 3★ Saurgem - 1,000 pts")
+    st.write("Get Saurgem Spinel - 2,000 pts")
+
+    st.write('')
+
     st.write("Minimum of points to receive rank rewards : 1,500,000.")
+
+    st.write('') 
+    current_points = st.number_input("How many points do you have so far?", 0)
 
     st.markdown("### What's in your bag ?")
     st.write("Let's look at your Runestones!")
@@ -468,7 +529,7 @@ elif event == week2_thursday :
     total_eco = 500 * eco_500 + 2000 * eco_2k + 10000 * eco_10k
     total_eco_points = total_eco / 100 * 40
 
-    st.write("Total of Economy Runestones : {}, granting {} points.".format(total_eco, round(total_eco_points)))
+    st.write("Total of Economy Runestones : {}, granting {:,} points.".format(total_eco, round(total_eco_points)))
 
     mil_500 = st.number_input("500 Military Runestones", 0)
     mil_2k = st.number_input("2K Military Runestones", 0)
@@ -477,10 +538,32 @@ elif event == week2_thursday :
     total_mil = 500 * mil_500 + 2000 * mil_2k + 10000 * mil_10k
     total_mil_points = total_mil / 100 * 40
 
-    st.write("Total of Military Runestones : {}, granting {} points.".format(total_mil, round(total_mil_points)))
-    st.write("**Total potential points** : {}.".format(round(total_eco_points + total_mil_points)))    
+    st.write("Total of Military Runestones : {}, granting {:,} points.".format(total_mil, round(total_mil_points)))
+    st.write("**Total potential points** : {:,}.".format(round(total_eco_points + total_mil_points)))    
+
+    essence_1_pts = 200
+    essence_chest = st.number_input("How many Essence Choice Chest do you have?", 0)
+    essence_chest_pts = essence_chest * essence_1_pts * 100
+
+    st.write("Points from chests : {:,}".format(essence_chest_pts))
+
+    spinel_pts = 2000
+    promote_chest = st.number_input("How many Promote Choice Chest do you have?", 0)
+    promote_chest_pts = promote_chest * spinel_pts * 10
+
+    st.write("Points from chests : {:,}".format(promote_chest_pts))
+
+    promote_stone_pts = 20000
+    promote_8_chest = st.number_input("How many 8★ Choice Chest do you have?", 0)
+    promote_8_chest_pts = promote_8_chest * promote_stone_pts * 1
+
+    st.write("Points from chests : {:,}".format(promote_8_chest_pts))
+    
+    st.write("**Total potential points** : {:,}.".format(round(total_eco_points + total_mil_points + essence_chest_pts + promote_chest_pts + promote_8_chest_pts + current_points)))
 
 
+
+### WARSIGIL ###
 elif event == warsigil :
 
     st.markdown("## 🏰 Warsigil Upgrade")
@@ -523,15 +606,21 @@ elif event == warsigil :
     essence_chest = st.number_input("How many Essence Choice Chest do you have?", 0)
     essence_chest_pts = essence_chest * essence_1_pts * 100
 
-    st.write("Points from chests : {}".format(essence_chest_pts))
+    st.write("Points from chests : {:,}".format(essence_chest_pts))
 
     spinel_pts = 1000
     promote_chest = st.number_input("How many Promote Choice Chest do you have?", 0)
     promote_chest_pts = promote_chest * spinel_pts * 10
 
-    st.write("Points from chests : {}".format(promote_chest_pts))
+    st.write("Points from chests : {:,}".format(promote_chest_pts))
+
+    promote_stone_pts = 20000
+    promote_8_chest = st.number_input("How many 8★ Choice Chest do you have?", 0)
+    promote_8_chest_pts = promote_8_chest * promote_stone_pts * 1
+
+    st.write("Points from chests : {:,}".format(promote_8_chest_pts))
     
-    st.write("**Total potential points** : {}.".format(round(essence_chest_pts + promote_chest_pts + current_points)))    
+    st.write("**Total potential points** : {:,}.".format(round(essence_chest_pts + promote_chest_pts + promote_8_chest_pts + current_points)))    
 
 #### GEAR EVENT ####
 #elif st.sidebar.checkbox("Gear points") :
