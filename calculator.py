@@ -24,7 +24,7 @@ week2_tuesday_dev = "♚ New Development"
 week2_tuesday_bless = "♚ Stone of Blessing"
 # week2_wednesday = "Obtain Equipment and Blessing stones items"
 week2_thursday = "♚ Sauroi Power"
-# week2_friday = "Obtain gems and Blessing stone items"
+week2_friday = "♚ Gem Upgrade"
 # week2_week_end = "Consume diamonds"
 
 ### -- Hell events -- ###
@@ -35,7 +35,7 @@ warsigil = "🏰 Warsigil Upgrade"
 event = st.sidebar.radio(
     "Choose your event !",
     (calendar, ace_monday, ace_tuesday, ace_friday, ace_week_end,
-    week2_monday, week2_tuesday_dev, week2_tuesday_bless, week2_thursday,
+    week2_monday, week2_tuesday_dev, week2_tuesday_bless, week2_thursday, week2_friday,
     warsigil))
 
 if event == calendar :
@@ -82,24 +82,24 @@ if event == calendar :
     st.write("Challenger's Path")
 
     st.write("### Wednesday")
+    st.write("Joy 777 - day 1")
     st.write("🎊 Gear Upgrade - Get Gear Material")
     st.write("Challenger's Path")
-    st.write("Joy 777 - day 1")
     st.write("Elemental Trial II - Green + Purple + Red Heroes")
 
     st.write("### Thursday")
+    st.write("Joy 777 - day 2")
     st.write("🎊 Sauroi Power - Get Runestones, get Saurgem Material")
     st.write("Monster Hunt")
-    st.write("Joy 777 - day 2")
-    st.write("Element Trial I - Blue + Yellow Heroes")
     st.write("Hell events")
     st.write("Army expension")
+    st.write("Element Trial I - Blue + Yellow Heroes")
 
     st.write("### Friday")
     st.write("🎊 Gem Upgrade - Get Gem Material")
-    st.write("Elemental Trial - Green + Yellow Heroes")
     st.write("Battle of Saurnesia")
     st.write("Joy 777 - day 3")
+    st.write("Elemental Trial IV - Green + Yellow Heroes")
 
     st.write("### Week-end")
     st.write("🎊 Consume diamonds")
@@ -561,7 +561,66 @@ elif event == week2_thursday :
     
     st.write("**Total potential points** : {:,}.".format(round(total_eco_points + total_mil_points + essence_chest_pts + promote_chest_pts + promote_8_chest_pts + current_points)))
 
+### GEM UPGRADE ###
+elif event == week2_friday :
+    st.markdown("## ♚ Gem Upgrade ♚")
+    st.write("-")
+    st.write("**How to earn points**")
+    st.write("Get 1★ Gem Essence - 100 pts")
+    st.write("Get 2★ Gem Essence - 500 pts")
+    st.write("Get 3★ Gem Essence - 2,000 pts")
+    st.write("Get 4★ Gem Essence - 5,000 pts")
+    st.write("Get 5★ Gem Essence - 20,000 pts")
+    st.write("Get 8★ Gem Promote Stone - 20,000 pts")
 
+    st.write("Get 3★ Gem - 1,000 pts")
+
+    st.write("Get Gem Spinel - 1,000 pts")
+
+    st.write('-')
+
+    current_points = st.number_input("How many points do you have so far?", 0)
+
+    essence_1_pts = 100
+    essence_chest = st.number_input("How many Essence Choice Chest do you have?", 0)
+    essence_chest_pts = essence_chest * essence_1_pts * 100
+
+    st.write("Points from chests : {:,}".format(essence_chest_pts))
+
+    spinel_pts = 1000
+    promote_chest = st.number_input("How many Promote Choice Chest do you have?", 0)
+    promote_chest_pts = promote_chest * spinel_pts * 10
+
+    st.write("Points from chests : {:,}".format(promote_chest_pts))
+
+    promote_stone_pts = 20000
+    promote_8_chest = st.number_input("How many 8★ Choice Chest do you have?", 0)
+    promote_8_chest_pts = promote_8_chest * promote_stone_pts * 1
+
+    st.write("Points from chests : {:,}".format(promote_8_chest_pts))
+    
+    chests_pts = essence_chest_pts + promote_chest_pts + promote_8_chest_pts
+
+    st.write("**Total potential points from chests** : {:,}.".format(round(chests_pts)))    
+
+    st.write('-')
+
+    st.write("Trial Shop : Gem Essence, Gem Promoter, Gem Spinel.")
+    #st.write("- Legion Showdown Shop : 4★ Hero Choice Card,  5★ Hero Choice Card;")
+    st.write("")
+
+    trial_coins = st.number_input('Trial Tower Coins', 0)
+    trial_spinels = trial_coins // 4
+    if trial_spinels > 600 :
+        trial_spinels = 600
+    trial_tower_points = trial_spinels*spinel_pts
+    st.write("Potential points from Trial Shop - Gem Spinel : {:,}, buying {} spinels.".format(trial_tower_points, trial_spinels))
+
+
+    st.write("**Total potential points** : {:,}.".format(round(chests_pts + current_points + trial_tower_points)))
+
+
+    pass
 
 ### WARSIGIL ###
 elif event == warsigil :
@@ -585,19 +644,19 @@ elif event == warsigil :
     st.write("Get Warsigil Spinel - 1,000 pts")
 
 
-    st.write("-")
-    st.write("**Points rewards phases**")
-    st.write("Phase 1 - Pts : 7,200")
-    st.write("Phase 2 - Pts : 14,400")
-    st.write("Phase 3 - Pts : 26,400")
-    st.write("Phase 4 - Pts : 36,000")
-    st.write("Phase 5 - Pts : 72,000")
-    st.write("Phase 6 - Pts : 144,000")
-    st.write("Phase 7 - Pts : 216,000")
-    st.write("Phase 8 - Pts : 300,000")
-    st.write("Phase 9 - Pts : 480,000")
-    st.write("Phase 10 - Pts : 600,000")
-    st.write("-")
+#    st.write("-")
+#    st.write("**Points rewards phases**")
+#    st.write("Phase 1 - Pts : 7,200")
+#    st.write("Phase 2 - Pts : 14,400")
+#    st.write("Phase 3 - Pts : 26,400")
+#    st.write("Phase 4 - Pts : 36,000")
+#    st.write("Phase 5 - Pts : 72,000")
+#    st.write("Phase 6 - Pts : 144,000")
+#    st.write("Phase 7 - Pts : 216,000")
+#    st.write("Phase 8 - Pts : 300,000")
+#    st.write("Phase 9 - Pts : 480,000")
+#    st.write("Phase 10 - Pts : 600,000")
+#    st.write("-")
 
 
     current_points = st.number_input("How many points do you have so far?", 0)
@@ -621,6 +680,8 @@ elif event == warsigil :
     st.write("Points from chests : {:,}".format(promote_8_chest_pts))
     
     st.write("**Total potential points** : {:,}.".format(round(essence_chest_pts + promote_chest_pts + promote_8_chest_pts + current_points)))    
+
+
 
 #### GEAR EVENT ####
 #elif st.sidebar.checkbox("Gear points") :
