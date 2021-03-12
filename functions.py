@@ -6,6 +6,11 @@ def day_min_from_total(total_mins):
 
     return days, mins
 
+def total_mins_from_time(days, hours, minutes, seconds):
+    total_mins = days * 24 * 60 + hours * 60 + minutes + seconds/60
+
+    return total_mins
+
 def get_bag_min(speedup_type):
     speed_up_5 = st.number_input('5 min {}'.format(speedup_type), 0)
     speed_up_10 = st.number_input('10 min {}'.format(speedup_type), 0)

@@ -29,6 +29,7 @@ week2_friday = "♚ Gem Upgrade"
 
 ### -- Hell events -- ###
 warsigil = "🏰 Warsigil Upgrade"
+time_calculator = "⏳ Time Converter"
 
 
 
@@ -36,7 +37,7 @@ event = st.sidebar.radio(
     "Choose your event !",
     (calendar, ace_monday, ace_tuesday, ace_friday, ace_week_end,
     week2_monday, week2_tuesday_dev, week2_tuesday_bless, week2_thursday, week2_friday,
-    warsigil))
+    warsigil, time_calculator))
 
 if event == calendar :
 
@@ -616,6 +617,7 @@ elif event == week2_friday :
     trial_tower_points = trial_spinels*spinel_pts
     st.write("Potential points from Trial Shop - Gem Spinel : {:,}, buying {} spinels.".format(trial_tower_points, trial_spinels))
 
+    ### TO DO : write a fonction including all the trial shop gem things possible to buy, with best way to use the coins.
 
     st.write("**Total potential points** : {:,}.".format(round(chests_pts + current_points + trial_tower_points)))
 
@@ -643,22 +645,6 @@ elif event == warsigil :
 
     st.write("Get Warsigil Spinel - 1,000 pts")
 
-
-#    st.write("-")
-#    st.write("**Points rewards phases**")
-#    st.write("Phase 1 - Pts : 7,200")
-#    st.write("Phase 2 - Pts : 14,400")
-#    st.write("Phase 3 - Pts : 26,400")
-#    st.write("Phase 4 - Pts : 36,000")
-#    st.write("Phase 5 - Pts : 72,000")
-#    st.write("Phase 6 - Pts : 144,000")
-#    st.write("Phase 7 - Pts : 216,000")
-#    st.write("Phase 8 - Pts : 300,000")
-#    st.write("Phase 9 - Pts : 480,000")
-#    st.write("Phase 10 - Pts : 600,000")
-#    st.write("-")
-
-
     current_points = st.number_input("How many points do you have so far?", 0)
 
     essence_1_pts = 100
@@ -682,6 +668,54 @@ elif event == warsigil :
     st.write("**Total potential points** : {:,}.".format(round(essence_chest_pts + promote_chest_pts + promote_8_chest_pts + current_points)))    
 
 
+### TIME CONVERTER ###
+elif event == time_calculator :
+
+    st.markdown("## ⏳ Time Converter")
+    st.write("Do you have enough speedups for this ?")
+    st.write('-')
+
+    st.write("*Already planned something ?*")
+    previous = st.number_input("Minutes prior to calcul", 0)
+ 
+    prev_days, prev_mins = day_min_from_total(previous)
+
+
+    st.write("Being {} day{}, {} hour{}, {} min.".format(
+    prev_days, 
+    's' if prev_days > 1 else '',
+    int(prev_mins // 60), 
+    's' if (int(prev_mins//60)) >1 else '',
+    prev_mins%60))
+
+    st.write("-")
+    is_training = st.checkbox("<-- check this for training version")
+
+    if is_training :
+        text = "training"
+        soldiers_batch = st.number_input("Training capacity:", 0)
+        nb_batch = st.number_input("How many batches do you want to do ?", 1)
+    else :
+        text = "building / research"
+        nb_batch = 1
+
+    st.write('-')
+
+    st.write(f"Time for {text}")
+    days = 0 if is_training else st.number_input("Days of building / training", 0) 
+    hours = st.number_input(f"Hours of {text}", 0)
+    minutes = st.number_input(f"Minutes of {text}", 0)
+    seconds = st.number_input(f"Seconds of {text}", 0)
+
+    total_minutes = round(total_mins_from_time(days, hours, minutes, seconds)*nb_batch)
+
+    st.write("Total time : {:,} min.".format(total_minutes))
+    if is_training:
+        st.write("Total of soldiers trained : {:,}.".format(soldiers_batch*nb_batch))
+
+    st.write("Total time including previous : {:,} min.".format(total_minutes+previous))
+
+    pass
 
 #### GEAR EVENT ####
 #elif st.sidebar.checkbox("Gear points") :
