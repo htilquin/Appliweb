@@ -823,7 +823,7 @@ elif event == rss_calc :
         'gold' : 7500,
     }
     
-    _, new_current = chest_rss("Lesser Resource Chests", less_rss_amt, rss_str, amt_current)
+    rss, new_current = chest_rss("Lesser Resource Chests", less_rss_amt, rss_str, amt_current)
 
     st.write("-")
     st.write("**Resource Choice Chests**")
