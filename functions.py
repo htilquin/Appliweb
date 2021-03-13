@@ -1,4 +1,5 @@
 import streamlit as st
+from operator import itemgetter
 
 def day_min_from_total(total_mins):
     days = total_mins // (24 * 60)
@@ -64,3 +65,63 @@ def gear_points(gear_spin = 0, gear_ess_1 = 0, gear_ess_2 = 0, gear_ess_3 = 0, g
         total_points += gear*point
         
     return total_points
+
+def sum_dict(list_of_dict):
+    new_dict = {}
+
+    for d in list_of_dict:
+        for k in d.keys():
+            new_dict[k] = new_dict.get(k, 0) + d[k]
+
+    return new_dict
+
+def chest_rss(type_chest, rss_amt, rss_str, amt_current):
+    '''
+    type_chest = string
+    rss_amt = dictionnaire avec qté possible pour food, wood, iron, gold dans le coffre
+    rss_str = dictionnaire avec string pour food, wood, iron, gold
+    '''
+
+    total_chests = st.number_input(f"{type_chest} in bag", 0)
+
+    if total_chests > 0 :
+        
+        food_chests = st.slider(f"{type_chest} converted to Food", min_value=0, max_value=total_chests)
+        chests_left_1 = total_chests - food_chests
+
+        wood_chests = st.slider(f"{type_chest} converted to Wood", min_value=0, max_value=chests_left_1) if chests_left_1 > 0 else 0
+        chests_left_2 = chests_left_1 - wood_chests
+        
+        
+        iron_chests = st.slider(f"{type_chest} converted to Iron", min_value=0, max_value=chests_left_2) if chests_left_2 > 0 else 0
+        chests_left_3 = chests_left_2 - iron_chests
+        
+
+        gold_chests = st.slider(f"{type_chest} converted to Gold", min_value=0, max_value=chests_left_3) if chests_left_3 > 0 else 0
+        chests_left_4 = chests_left_3 - gold_chests
+        
+        
+        st.write(f"Chests left : {chests_left_4}.")
+
+        rss_qty = {
+            'food' : food_chests * rss_amt["food"],
+            'wood' : wood_chests * rss_amt["wood"],
+            'iron' : iron_chests * rss_amt["iron"],
+            'gold' : gold_chests * rss_amt["gold"],
+        }
+
+        new_current = sum_dict([amt_current, rss_qty])
+
+        st.write(f"*Total from {type_chest}*")
+        st.write("{} {:,} - {:,} cumulated.".format(rss_str["food"], rss_qty['food'], new_current['food']))
+        st.write("{} {:,} - {:,} cumulated.".format(rss_str["wood"], rss_qty['wood'], new_current['wood']))
+        st.write("{} {:,} - {:,} cumulated.".format(rss_str["iron"], rss_qty['iron'], new_current['iron']))
+        st.write("{} {:,} - {:,} cumulated.".format(rss_str["gold"], rss_qty['gold'], new_current['gold']))  
+
+        return rss_qty, 
+    
+    else :
+        pass
+
+    
+    

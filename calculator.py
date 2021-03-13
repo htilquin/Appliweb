@@ -31,14 +31,15 @@ week2_friday = "♚ Gem Upgrade"
 ### -- Hell events -- ###
 
 time_calculator = "⏳ Time Converter"
-might_speed = "🔎 Might + speedups pts"
+might_speed = "🔎 Might + Speedups pts"
+rss_calc = "🌰 Resources Calculator"
 
 
 event = st.sidebar.radio(
     "Choose your event !",
     (calendar, ace_monday, ace_tuesday, warsigil, ace_friday, ace_week_end,
     week2_monday, week2_tuesday_dev, week2_tuesday_bless, week2_thursday, week2_friday,
-    time_calculator, might_speed))
+    time_calculator, might_speed, rss_calc))
 
 if event == calendar :
 
@@ -766,6 +767,76 @@ elif event == might_speed :
     st.write("**Total points** from this {} (speedups + might pts): {:,}.".format(text, speed_up_pts + might_pts))
 
     pass
+
+###  ###
+elif event == rss_calc :
+
+    rss_str = {
+        "food" : "Food :",
+        "wood" : "Wood :",
+        "iron" : "Iron :",
+        "gold" : "Gold :"
+    }
+
+    st.markdown("## 🌰 Resources Calculator")
+    st.write("What's the most you could get ?")
+    st.write("-")
+    
+    st.write("**Territory Overview**")
+    st.write("Get in your Territory Overview to find the following numbers")
+    
+    food_held = st.number_input("Food Held", 0)
+    food_bag = st.number_input("Total Food (in Bag)", 0)
+    
+    st.write('')
+    wood_held = st.number_input("Wood Held", 0)
+    wood_bag = st.number_input("Total Wood (in Bag)", 0)
+    
+    st.write('')
+    iron_held = st.number_input("Iron Held", 0)
+    iron_bag = st.number_input("Total Iron (in Bag)", 0)
+    
+    st.write('')
+    gold_held = st.number_input("Gold Held", 0)
+    gold_bag = st.number_input("Total Gold (in Bag)", 0)
+
+    amt_current = {
+    "food" : food_held + food_bag,
+    "wood" : wood_held + wood_bag,
+    "iron" : iron_held + iron_bag,
+    "gold" : gold_held + gold_bag,
+    }
+
+    st.write("*Total held + bag*")
+    st.write("{} {:,}.".format(rss_str["food"], amt_current["food"]))
+    st.write("{} {:,}.".format(rss_str["wood"], amt_current["wood"]))
+    st.write("{} {:,}.".format(rss_str["iron"], amt_current["iron"]))
+    st.write("{} {:,}.".format(rss_str["gold"], amt_current["gold"]))
+
+    st.write("-")
+    st.write("**Lesser Resource Chests**")
+
+    less_rss_amt = {
+        'food' : 150000,
+        'wood' : 150000,
+        'iron' : 30000,
+        'gold' : 7500,
+    }
+    chest_rss("Lesser Resource Chests", less_rss_amt, rss_str, amt_current)
+
+    st.write("-")
+    st.write("**Resource Choice Chests**")
+
+    choice_chest_amt = {
+        'food' : 150000*10,
+        'wood' : 150000*10,
+        'iron' : 50000*6,
+        'gold' : 25000*3,
+    }
+    chest_rss("Resource Choice Chests", choice_chest_amt, rss_str, amt_current)
+
+    pass
+
 
 
 st.write('---')
