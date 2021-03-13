@@ -15,6 +15,7 @@ ace_monday = "♔ Gathering"
 ace_tuesday = "♔ Development"
 # ace_wednesday = "Consume Stamina and AP"
 ace_thurday = "Finish troops"
+warsigil = "♚ Warsigil Upgrade"
 ace_friday = "♔ Ultimate might" # Blacksmith might, essence, blessing
 ace_week_end = "♔ Ultimate Trial" #  Improve building and research might, train troops
 
@@ -28,16 +29,16 @@ week2_friday = "♚ Gem Upgrade"
 # week2_week_end = "Consume diamonds"
 
 ### -- Hell events -- ###
-warsigil = "🏰 Warsigil Upgrade"
-time_calculator = "⏳ Time Converter"
 
+time_calculator = "⏳ Time Converter"
+might_speed = "🔎 Might + speedups pts"
 
 
 event = st.sidebar.radio(
     "Choose your event !",
-    (calendar, ace_monday, ace_tuesday, ace_friday, ace_week_end,
+    (calendar, ace_monday, ace_tuesday, warsigil, ace_friday, ace_week_end,
     week2_monday, week2_tuesday_dev, week2_tuesday_bless, week2_thursday, week2_friday,
-    warsigil, time_calculator))
+    time_calculator, might_speed))
 
 if event == calendar :
 
@@ -53,34 +54,53 @@ if event == calendar :
     st.markdown('## ♔ Ace Lord Week ♔')
     st.markdown("### Monday")
     st.write("✨ 1/6 - Gathering")
+    st.write("+ Lucky Draw - day 1")
+    st.write("+ Demon Incursion")
+
     st.markdown("### Tuesday")
     st.write("✨ 2/6 - Development - Finish Construction + Research")
+    st.write("+ Lucky Draw - day 2")
+
     st.markdown("### Wednesday")
     st.write("✨ 3/6 - Hunt Monsters - Consume Stamina and AP")
+    st.write("+ Lucky Draw - day 3")
+
     st.markdown("### Thursday")
     st.write("✨ 4-/6 Master Trainer - Finish Troops") 
-    st.write("Warsigil Upgrade")
+    st.write("🎊 Warsigil Upgrade")
+    st.write("+ Hell events")
+    st.write("+ Element Trial I - Purple + Yellow Heroes")
+    st.write("+ Demon Incursion")
+
     st.markdown("### Friday")
     st.write("✨ 5/6 - Ultimate Might - Improve Blacksmith might, get essences, get blessing stones")
+    st.write("+ Hell events")
+    st.write("+ Element Trial III - Green + Blue + Purple Heroes")
+    st.write("+ Battle of Saurnesia")
+
     st.markdown("### Week-end")
     st.write("✨ 6/6 - Ultimate Trial - Finish Constructions + Research + Troops")
-    st.write("Military Expedition")
+    st.write("+ Boneyard")
+    st.write("+ Hell events")
+    st.write("+ Element Trial IV - All colors")
+    st.write("+ Hunter Tactic")
+    st.write("+ Military Expedition")
 
     st.write("-")
 
     st.markdown('## ♚ Other Week ♚')
     st.markdown("### Monday")
     st.write("🎊 Hero Update - Get Hero Fragments")
-    st.write("Personal Activity")
-    st.write("Element Trial I - Blue + Yellow Heroes")
-    st.write("Challenger's Path")
+    st.write("+ Personal Activity")
+    st.write("+ Element Trial I - Blue + Yellow Heroes")
+    st.write("+ Challenger's Path - day 1")
 
     st.markdown("### Tuesday###")
     st.write("🎊 New Development - Get Mark of glory, use speedups")
     st.write("🎊 Stone of Blessing")
-    st.write("Monster Hunt")
-    st.write("Gather Supplies")
-    st.write("Challenger's Path")
+    st.write("+ Gather Supplies")
+    st.write("+ Challenger's Path - day 2")
+    st.write("+ Monster Hunt")
 
     st.write("### Wednesday")
     st.write("Joy 777 - day 1")
@@ -627,8 +647,8 @@ elif event == week2_friday :
 ### WARSIGIL ###
 elif event == warsigil :
 
-    st.markdown("## 🏰 Warsigil Upgrade")
-    st.write('Event on Monday of Ace Lord week.')
+    st.markdown("## ♚ Warsigil Upgrade")
+    st.write('Event on Thursday of Ace Lord week.')
     st.write("-")
     st.write("**How to earn points**")
     st.write("Get 1★ Warsigil Essence - 100 pts")
@@ -667,7 +687,6 @@ elif event == warsigil :
     
     st.write("**Total potential points** : {:,}.".format(round(essence_chest_pts + promote_chest_pts + promote_8_chest_pts + current_points)))    
 
-
 ### TIME CONVERTER ###
 elif event == time_calculator :
 
@@ -679,7 +698,6 @@ elif event == time_calculator :
     previous = st.number_input("Minutes prior to calcul", 0)
  
     prev_days, prev_mins = day_min_from_total(previous)
-
 
     st.write("Being {} day{}, {} hour{}, {} min.".format(
     prev_days, 
@@ -702,7 +720,7 @@ elif event == time_calculator :
     st.write('-')
 
     st.write(f"Time for {text}")
-    days = 0 if is_training else st.number_input("Days of building / training", 0) 
+    days = 0 if is_training else st.number_input(f"Days of {text}", 0) 
     hours = st.number_input(f"Hours of {text}", 0)
     minutes = st.number_input(f"Minutes of {text}", 0)
     seconds = st.number_input(f"Seconds of {text}", 0)
@@ -717,13 +735,38 @@ elif event == time_calculator :
 
     pass
 
-#### GEAR EVENT ####
-#elif st.sidebar.checkbox("Gear points") :
-    # bag : 
-    # lost lands
-    # alliance shop
-#    st.write("Soon!")
-#    pass
+### Hell event : build might + speedup ###
+elif event == might_speed :
+
+    st.markdown("## 🔎 Might + speedups pts")
+    st.write("How many points would it bring to speed-build this ?")
+    st.write('-')
+
+    st.write("**Hell event**")
+    st.write("- Migh improved by 1 via Research - 2 pts")
+    st.write("- 1-min Research Speedup - 15 pts")
+
+    text = "building / research"
+
+    st.write(f"Time for {text}")
+    days = st.number_input(f"Days of {text}", 0) 
+    hours = st.number_input(f"Hours of {text}", 0)
+    minutes = st.number_input(f"Minutes of {text}", 0)
+    seconds = st.number_input(f"Seconds of {text}", 0)
+
+    total_minutes = round(total_mins_from_time(days, hours, minutes, seconds))
+    st.write("Total minutes : {:,}.".format(total_minutes))
+    speed_up_pts = total_minutes * 15
+    st.write("Points from speeding it up : {:,}.".format(speed_up_pts))
+
+    might_build = st.number_input(f"Might added with this {text}", 0)
+    might_pts = might_build * 2
+    st.write("Points from {} it up : {:,}.".format(text, might_pts))
+
+    st.write("**Total points** from this {} (speedups + might pts): {:,}.".format(text, speed_up_pts + might_pts))
+
+    pass
+
 
 st.write('---')
 st.write("Specially made for the Mavdalorian. 🥰")
