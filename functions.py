@@ -121,7 +121,8 @@ def chest_rss(type_chest, rss_amt, rss_str, amt_current):
         return rss_qty, new_current
     
     else :
-        pass
+        return {}, amt_current
+
 
     
     
