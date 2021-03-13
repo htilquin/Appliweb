@@ -822,7 +822,8 @@ elif event == rss_calc :
         'iron' : 30000,
         'gold' : 7500,
     }
-    chest_rss("Lesser Resource Chests", less_rss_amt, rss_str, amt_current)
+    
+    _, new_current = chest_rss("Lesser Resource Chests", less_rss_amt, rss_str, amt_current)
 
     st.write("-")
     st.write("**Resource Choice Chests**")
@@ -833,9 +834,10 @@ elif event == rss_calc :
         'iron' : 50000*6,
         'gold' : 25000*3,
     }
-    chest_rss("Resource Choice Chests", choice_chest_amt, rss_str, amt_current)
 
-    pass
+    chest_rss("Resource Choice Chests", choice_chest_amt, rss_str, new_current)
+
+
 
 
 

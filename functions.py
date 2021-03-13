@@ -118,7 +118,7 @@ def chest_rss(type_chest, rss_amt, rss_str, amt_current):
         st.write("{} {:,} - {:,} cumulated.".format(rss_str["iron"], rss_qty['iron'], new_current['iron']))
         st.write("{} {:,} - {:,} cumulated.".format(rss_str["gold"], rss_qty['gold'], new_current['gold']))  
 
-        return rss_qty, 
+        return rss_qty, new_current
     
     else :
         pass
