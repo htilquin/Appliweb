@@ -14,7 +14,7 @@ calendar = "📅 Calendar..."
 ace_monday = "♔ Gathering"
 ace_tuesday = "♔ Development"
 # ace_wednesday = "Consume Stamina and AP"
-ace_thurday = "Finish troops"
+ace_thurday = "♔ Master Trainer"
 warsigil = "♚ Warsigil Upgrade"
 ace_friday = "♔ Ultimate might" # Blacksmith might, essence, blessing
 ace_week_end = "♔ Ultimate Trial" #  Improve building and research might, train troops
@@ -37,7 +37,7 @@ rss_calc = "🌰 Resources Calculator"
 
 event = st.sidebar.radio(
     "Choose your event !",
-    (calendar, ace_monday, ace_tuesday, warsigil, ace_friday, ace_week_end,
+    (calendar, ace_monday, ace_tuesday, warsigil, ace_thurday, ace_friday, ace_week_end,
     week2_monday, week2_tuesday_dev, week2_tuesday_bless, week2_thursday, week2_friday,
     time_calculator, might_speed, rss_calc))
 
@@ -306,6 +306,30 @@ if event == ace_week_end : # Improve building and research might, train troops
     st.write('**Event on the week-end of Ace Lord week.**')
     st.write("Buildings, Research, Troops")
 
+if event == ace_thurday : # Master Trainer
+    st.markdown("## ♔ Ace Lord - Master Trainer ♔")
+    st.write('**Event on Thursday of Ace Lord week.**')
+
+    promoting = st.checkbox("<-- check this for promoting version")
+
+    tier_before = st.slider("What tier are the troops to promote ?", min_value=1, max_value=11) if promoting else 0
+    tier = st.slider("What tier are the troops you are planning to train ?", min_value=tier_before+1, max_value=12)
+
+    if promoting :
+        st.write(f"Promoting troops from t{tier_before} to t{tier}!") 
+    else:
+        st.write(f"Training t{tier} troops!")
+
+
+
+    soldiers_batch = st.number_input("Training capacity:", 0)
+    nb_batch = st.number_input("How many batches do you want to do ?", 1)
+
+
+
+
+
+
 ### HERO FRAG EVENT ###
 elif event == week2_monday : # Hero frags event
     st.markdown("## ♚ Hero Upgrade ♚")
@@ -521,17 +545,24 @@ elif event == week2_thursday :
     st.write("-")
     st.write("**How to earn points**")
 
+    pts_per_rune = 40 / 100
     st.write("Get 100 Runestones - 40 pts")
     st.write('')
 
+    essence_1_pts = 200
     st.write("Get 1★ Saurgem Essence - 200 pts")
+    essence_2_pts = 1000
     st.write("Get 2★ Saurgem Essence - 1,000 pts")
+    essence_3_pts = 4000
     st.write("Get 3★ Saurgem Essence - 4,000 pts")
+    essence_4_pts = 10000    
     st.write("Get 4★ Saurgem Essence - 10,000 pts")
     st.write("Get 5★ Saurgem Essence - 40,000 pts")
+    promote_stone_pts = 20000
     st.write("Get 8★ Saurgem Promoter - 20,000 pts")
 
     st.write("Get 3★ Saurgem - 1,000 pts")
+    spinel_pts = 2000
     st.write("Get Saurgem Spinel - 2,000 pts")
 
     st.write('')
@@ -541,15 +572,16 @@ elif event == week2_thursday :
     st.write('') 
     current_points = st.number_input("How many points do you have so far?", 0)
 
+    st.write('')
     st.markdown("### What's in your bag ?")
-    st.write("Let's look at your Runestones!")
+    st.markdown("#### Let's look at your Runestones!")
 
     eco_500 = st.number_input("500 Economy Runestones", 0)
     eco_2k = st.number_input("2K Economy Runestones", 0)
     eco_10k = st.number_input("10K Economy Runestones", 0)    
 
     total_eco = 500 * eco_500 + 2000 * eco_2k + 10000 * eco_10k
-    total_eco_points = total_eco / 100 * 40
+    total_eco_points = total_eco * pts_per_rune
 
     st.write("Total of Economy Runestones : {}, granting {:,} points.".format(total_eco, round(total_eco_points)))
 
@@ -558,30 +590,109 @@ elif event == week2_thursday :
     mil_10k = st.number_input("10K Military Runestones", 0)
 
     total_mil = 500 * mil_500 + 2000 * mil_2k + 10000 * mil_10k
-    total_mil_points = total_mil / 100 * 40
+    total_mil_points = total_mil * pts_per_rune
 
     st.write("Total of Military Runestones : {}, granting {:,} points.".format(total_mil, round(total_mil_points)))
     st.write("**Total potential points** : {:,}.".format(round(total_eco_points + total_mil_points)))    
 
-    essence_1_pts = 200
+    st.write('')
+    st.markdown("#### Let's look at your Choice Chests!")
     essence_chest = st.number_input("How many Essence Choice Chest do you have?", 0)
     essence_chest_pts = essence_chest * essence_1_pts * 100
 
     st.write("Points from chests : {:,}".format(essence_chest_pts))
 
-    spinel_pts = 2000
     promote_chest = st.number_input("How many Promote Choice Chest do you have?", 0)
     promote_chest_pts = promote_chest * spinel_pts * 10
 
     st.write("Points from chests : {:,}".format(promote_chest_pts))
 
-    promote_stone_pts = 20000
     promote_8_chest = st.number_input("How many 8★ Choice Chest do you have?", 0)
     promote_8_chest_pts = promote_8_chest * promote_stone_pts * 1
 
     st.write("Points from chests : {:,}".format(promote_8_chest_pts))
     
-    st.write("**Total potential points** : {:,}.".format(round(total_eco_points + total_mil_points + essence_chest_pts + promote_chest_pts + promote_8_chest_pts + current_points)))
+    st.write('')
+    ## TOWER OF TRIAL ##
+    st.markdown("### Tower of Trial")
+    st.markdown("#### First victory rewards")
+    trial_coins = st.number_input('Trial Tower Coins', 0)
+
+    trial_spinels = st.slider("Saurgem Spinels available to buy in 1st Victory Items", min_value=0, max_value=500, step=100)
+    if trial_spinels > 0 :
+        trial_price = st.number_input(f"What's the price for these {trial_spinels} spinels?", 0)
+        if trial_price > trial_coins:
+            st.write("You don't seem to have enough to buy this...")
+            trial_spinels = 0
+        else:
+            trial_coins = trial_coins - trial_price
+
+    st.write('')
+    st.markdown("#### Normal items")
+    economy_trial = trial_coins // 8
+    if economy_trial > 50 :
+        economy_trial = 50
+    trial_tower_points = round(economy_trial * 2000 * pts_per_rune + trial_spinels * spinel_pts)
+
+    st.write("Points from Trial Shop : {:,}, buying {} * 2K Runestones & {} spinels.".format(trial_tower_points, economy_trial, trial_spinels))
+
+    ## RARE EARTH SHOP ##
+    st.markdown("### Rare Earth Shop")
+    rare_earth_coins_start = st.number_input("Rare Earth items owned :", 0)
+
+    rare_price_essence_1 = 500
+    rare_max_essence_1 = 200
+    # st.write("Essence 1 : {:.1}".format(essence_1_pts / rare_price_essence_1)) 0.4 pts per coin
+
+    rare_price_essence_2 = 2200
+    rare_max_essence_2 = 100
+    # st.write("Essence 2 : {:.1}".format(essence_2_pts / rare_price_essence_2)) 0.5 pts per coin
+
+    rare_price_essence_3 = 8500
+    rare_max_essence_3 = 40
+    # st.write("Essence 3 : {:.1}".format(essence_3_pts / rare_price_essence_3)) 0.5 pts per coin
+
+    rare_price_essence_4 = 20000 
+    rare_max_essence_4 = 20
+    # st.write("Essence 4 : {:.1}".format(essence_4_pts / rare_price_essence_4)) 0.5 pts per coin
+
+    rare_price_spinel = 5000
+    rare_max_spinel = 300
+    # st.write("Spinel : {:.1}".format(spinel_pts / rare_price_spinel)) 0.4 pts per coin
+
+    st.markdown("#### Worthiest :")
+    st.write('')
+    rare_essence_4, rare_essence_4_pts, rare_earth_coins = saurgem_rare_earth_shop(rare_earth_coins_start, rare_price_essence_4, rare_max_essence_4, essence_4_pts)  
+    st.write("4★ Saurgem Essence : {:,} pts, buying {:,} items.".format(rare_essence_4_pts, rare_essence_4))
+
+    rare_essence_3, rare_essence_3_pts, rare_earth_coins = saurgem_rare_earth_shop(rare_earth_coins, rare_price_essence_3, rare_max_essence_3, essence_3_pts)  
+    st.write("3★ Saurgem Essence : {:,} pts, buying {:,} items.".format(rare_essence_3_pts, rare_essence_3))
+
+    rare_essence_2, rare_essence_2_pts, rare_earth_coins = saurgem_rare_earth_shop(rare_earth_coins, rare_price_essence_2, rare_max_essence_2, essence_2_pts)  
+    st.write("2★ Saurgem Essence : {:,} pts, buying {:,} items.".format(rare_essence_2_pts, rare_essence_2))
+
+    st.markdown("#### Less Worth it, but do it anyway if you want ;)")
+    st.write('')
+    rare_essence_1, rare_essence_1_pts, rare_earth_coins = saurgem_rare_earth_shop(rare_earth_coins, rare_price_essence_1, rare_max_essence_1, essence_1_pts)  
+    st.write("1★ Saurgem Essence : {:,} pts, buying {:,} items.".format(rare_essence_1_pts, rare_essence_1))
+
+    rare_spinel, rare_spinel_pts, rare_earth_coins = saurgem_rare_earth_shop(rare_earth_coins, rare_price_spinel, rare_max_spinel, spinel_pts)  
+    st.write("1★ Saurgem Essence : {:,} pts, buying {:,} items.".format(rare_spinel_pts, rare_spinel))
+
+    rare_earth_points = rare_essence_4_pts + rare_essence_3_pts + rare_essence_2_pts + rare_essence_1_pts + rare_spinel_pts
+
+    st.write('')
+    st.write("Points from Rare Earth Shop : {:,}, spending {:,} rare earth items.".format(rare_earth_points, rare_earth_coins_start - rare_earth_coins))
+
+    ## TOTAL POINTS ##
+    st.write('-')
+    total_points = round(
+        trial_tower_points + total_eco_points + total_mil_points + 
+        essence_chest_pts + promote_chest_pts + promote_8_chest_pts + current_points + rare_earth_points)
+    st.write("**Total potential points** : {:,}.".format(total_points))
+
+
+
 
 ### GEM UPGRADE ###
 elif event == week2_friday :
@@ -594,40 +705,57 @@ elif event == week2_friday :
     st.write("Get 4★ Gem Essence - 5,000 pts")
     st.write("Get 5★ Gem Essence - 20,000 pts")
     st.write("Get 8★ Gem Promote Stone - 20,000 pts")
-
     st.write("Get 3★ Gem - 1,000 pts")
-
     st.write("Get Gem Spinel - 1,000 pts")
+
+    essence_1_pts = 100
+    essence_2_pts = 500
+    essence_3_pts = 2000
+    promote_stone_pts = 20000
+    spinel_pts = 1000
 
     st.write('-')
 
     current_points = st.number_input("How many points do you have so far?", 0)
+    st.write('-')
 
-    essence_1_pts = 100
+    ### CHESTS POINTS ###
+    st.markdown("### What's in your bag ?")
+    st.write("Let's look at your chests !")
     essence_chest = st.number_input("How many Essence Choice Chest do you have?", 0)
     essence_chest_pts = essence_chest * essence_1_pts * 100
+    st.write("Max. points from chests : {:,}".format(essence_chest_pts))
 
-    st.write("Points from chests : {:,}".format(essence_chest_pts))
-
-    spinel_pts = 1000
     promote_chest = st.number_input("How many Promote Choice Chest do you have?", 0)
     promote_chest_pts = promote_chest * spinel_pts * 10
+    st.write("Max. points from chests : {:,}".format(promote_chest_pts))
 
-    st.write("Points from chests : {:,}".format(promote_chest_pts))
-
-    promote_stone_pts = 20000
     promote_8_chest = st.number_input("How many 8★ Choice Chest do you have?", 0)
     promote_8_chest_pts = promote_8_chest * promote_stone_pts * 1
-
-    st.write("Points from chests : {:,}".format(promote_8_chest_pts))
+    st.write("Max. points from chests : {:,}".format(promote_8_chest_pts))
     
     chests_pts = essence_chest_pts + promote_chest_pts + promote_8_chest_pts
-
     st.write("**Total potential points from chests** : {:,}.".format(round(chests_pts)))    
 
     st.write('-')
 
-    st.write("Trial Shop : Gem Essence, Gem Promoter, Gem Spinel.")
+    ### TRIAL SHOP POINTS
+    st.write("Get points from **Trial Shop** : Gem Essence, Gem Promoter, Gem Spinel.")
+
+    ### TO DO : write a fonction including all the trial shop gem things possible to buy, with best way to use the coins.
+    essence_1_price = 1
+    essence_2_price = 2
+    essence_3_price = 8
+    gem_price = 4
+
+    total_trial_coins = st.number_input("How many coins do you have ?")
+    
+     
+
+
+
+
+
     #st.write("- Legion Showdown Shop : 4★ Hero Choice Card,  5★ Hero Choice Card;")
     st.write("")
 
@@ -638,7 +766,7 @@ elif event == week2_friday :
     trial_tower_points = trial_spinels*spinel_pts
     st.write("Potential points from Trial Shop - Gem Spinel : {:,}, buying {} spinels.".format(trial_tower_points, trial_spinels))
 
-    ### TO DO : write a fonction including all the trial shop gem things possible to buy, with best way to use the coins.
+
 
     st.write("**Total potential points** : {:,}.".format(round(chests_pts + current_points + trial_tower_points)))
 
@@ -748,7 +876,7 @@ elif event == might_speed :
     st.write("- 1-min Research Speedup - 15 pts")
 
     text = "building / research"
-
+    st.write("-")
     st.write(f"Time for {text}")
     days = st.number_input(f"Days of {text}", 0) 
     hours = st.number_input(f"Hours of {text}", 0)
@@ -762,13 +890,13 @@ elif event == might_speed :
 
     might_build = st.number_input(f"Might added with this {text}", 0)
     might_pts = might_build * 2
-    st.write("Points from {} it up : {:,}.".format(text, might_pts))
+    st.write("Points from {} : {:,}.".format(text, might_pts))
 
     st.write("**Total points** from this {} (speedups + might pts): {:,}.".format(text, speed_up_pts + might_pts))
 
     pass
 
-###  ###
+###  RESOURCES CALCULATOR ###
 elif event == rss_calc :
 
     rss_str = {
@@ -782,7 +910,7 @@ elif event == rss_calc :
     st.write("What's the most you could get ?")
     st.write("-")
     
-    st.write("**Territory Overview**")
+    st.markdown("### Territory Overview")
     st.write("Get in your Territory Overview to find the following numbers")
     
     food_held = st.number_input("Food Held", 0)
@@ -814,6 +942,7 @@ elif event == rss_calc :
     st.write("{} {:,}.".format(rss_str["gold"], amt_current["gold"]))
 
     st.write("-")
+    st.markdown("### Resource Chests")
     st.write("**Lesser Resource Chests**")
 
     less_rss_amt = {
@@ -822,7 +951,6 @@ elif event == rss_calc :
         'iron' : 30000,
         'gold' : 7500,
     }
-    
     rss, new_current = chest_rss("Lesser Resource Chests", less_rss_amt, rss_str, amt_current)
 
     st.write("-")
@@ -834,8 +962,11 @@ elif event == rss_calc :
         'iron' : 50000*6,
         'gold' : 25000*3,
     }
-
     chest_rss("Resource Choice Chests", choice_chest_amt, rss_str, new_current)
+
+    st.write('-')
+    st.markdown("### Rare Earth Fields")
+    st.write("Promise I'll do that too... Tell me if you need it :)")
 
 
 

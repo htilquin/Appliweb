@@ -123,6 +123,18 @@ def chest_rss(type_chest, rss_amt, rss_str, amt_current):
     else :
         return {}, amt_current
 
+def saurgem_rare_earth_shop(rare_earth_coins, rare_price_essence, rare_max_essence, essence_pts):
 
+    if rare_earth_coins > 0:
+        rare_essence = rare_earth_coins // rare_price_essence
+        if rare_essence > rare_max_essence :
+            rare_essence = rare_max_essence
+        rare_essence_pts = rare_essence * essence_pts
+        rare_earth_coins = rare_earth_coins - rare_essence * rare_price_essence
+    else :
+        rare_essence = 0
+        rare_essence_pts = 0
+
+    return rare_essence, rare_essence_pts, rare_earth_coins
     
     
