@@ -390,7 +390,7 @@ elif event == week2_tuesday_dev : # Speedups event
     st.markdown("## ♚ New Development ♚")
     st.markdown("### Use speedups, get Mark of glory.")
     st.write("Use 1 min of speedup = 15 pts")
-    st.write("Get 1 Mark of Glory = 350 pts")
+    st.write("Get 1 Mark of Glory = 500 pts")
     st.write("Minimum of points to receive rank rewards : 900,000.")
 
     st.write("---")
@@ -507,7 +507,7 @@ elif event == week2_tuesday_dev : # Speedups event
     st.write("You can buy **Mark of Glory** items in the Rare Earth Shop")
     rare_earth_coins = st.number_input("Rare Earth items owned :", 0)
     mark_of_glory = rare_earth_coins // 5000
-    mark_of_glory_points = mark_of_glory * 350
+    mark_of_glory_points = mark_of_glory * 500
 
     st.write("Potential points from Rare Earth Mark of Glory : {:,}, buying {} items.".format(mark_of_glory_points, mark_of_glory))
 
